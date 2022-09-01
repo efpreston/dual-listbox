@@ -3,12 +3,12 @@ const MAIN_BLOCK = "dual-listbox";
 const CONTAINER_ELEMENT = "dual-listbox__container";
 const AVAILABLE_ELEMENT = "dual-listbox__available";
 const SELECTED_ELEMENT = "dual-listbox__selected";
+const DISABLED_ELEMENT = "dual-listbox__disabled";
 const TITLE_ELEMENT = "dual-listbox__title";
 const ITEM_ELEMENT = "dual-listbox__item";
 const BUTTONS_ELEMENT = "dual-listbox__buttons";
 const BUTTON_ELEMENT = "dual-listbox__button";
 const SEARCH_ELEMENT = "dual-listbox__search";
-
 const SELECTED_MODIFIER = "dual-listbox__item--selected";
 
 const DIRECTION_UP = "up";
@@ -433,9 +433,11 @@ class DualListbox {
         listItem.classList.add(ITEM_ELEMENT);
         listItem.innerHTML = option.text;
         listItem.dataset.id = option.value;
-
-        this._addClickActions(listItem);
-
+        if (option.disabled) {
+            listItem.classList.add(DISABLED_ELEMENT);
+        } else {
+            this._addClickActions(listItem);
+        }
         return listItem;
     }
 
@@ -560,6 +562,7 @@ class DualListbox {
                     text: option.innerHTML,
                     value: option.value,
                     selected: option.attributes.selected,
+                    disabled: option.attributes.disabled,
                 });
             } else {
                 this._addOption(option);

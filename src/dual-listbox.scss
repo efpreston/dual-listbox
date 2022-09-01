@@ -26,6 +26,13 @@
         -webkit-margin-before: 0;
     }
 
+    .dual-listbox__disabled {
+        background-color: #e9ecef;
+        opacity: 1;
+        border: 1px solid #ced4da;
+        pointer-events: none;
+    }
+
     .dual-listbox__buttons {
         display: flex;
         flex-direction: column;
