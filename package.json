@@ -1,5 +1,5 @@
 {
-    "name": "dual-listbox",
+    "name": "@uvasomit/dual-listbox",
     "version": "1.4.0",
     "description": "Dual listbox for multi-select elements",
     "browserslist": "> 0.05%",
@@ -23,8 +23,11 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/maykinmedia/dual-listbox.git"
+        "url": "git+https://github.com/uvasomit/dual-listbox.git"
     },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/uvasomit"
+      },
     "keywords": [
         "Select",
         "Dual",
@@ -33,11 +36,14 @@
         "Multi"
     ],
     "author": "Maykin Media <info@maykinmedia.nl>",
+    "contributors": [
+        "Ashish Pathak <ap4kt@virginia.edu>"
+    ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/maykinmedia/dual-listbox/issues"
+        "url": "https://github.com/uvasomit/dual-listbox/issues"
     },
-    "homepage": "https://github.com/maykinmedia/dual-listbox#readme",
+    "homepage": "https://github.com/uvasomit/dual-listbox#readme",
     "jest": {
         "collectCoverage": true,
         "collectCoverageFrom": [
