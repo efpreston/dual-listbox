@@ -7,6 +7,7 @@ on:
   push:
     branches: [master]
     paths:
+      - 'package.json'
       - 'dist/**'
 jobs:
   build:
