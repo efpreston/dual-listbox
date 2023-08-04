@@ -15,9 +15,11 @@
         width: 100%;
     }
     .dual-listbox__label {
-        border: 1px solid #ddd;
-        padding: 10px;
-        width: 100%;
+        padding: 15px 10px;
+        font-size: 120%;
+        font-weight: 700;
+        margin-top: 1rem;
+        //-webkit-margin-before: 1rem;
     }
 
     .dual-listbox__available,

@@ -69,7 +69,7 @@ class DualListbox {
         this.removeAllButtonText = "remove all";
 
         this.searchPlaceholder = "Search";
-        this.selectedLabel = ' Items Attached';
+        this.selectedLabel = " Items Attached";
         this.sortable = false;
         this.upButtonText = "up";
         this.downButtonText = "down";
@@ -221,7 +221,7 @@ class DualListbox {
      * Update the elements in the listbox;
      */
     _updateSelectedlabel(selectedlength) {
-        this.selected_label.text = selectedlistlength +this.selectedLabel;
+        this.selected_label.innerText = selectedlength +this.selectedLabel;
     }
 
     /**
@@ -376,14 +376,16 @@ class DualListbox {
             )
         );
         this.dualListBoxContainer.appendChild(this.buttons);
+        let selectedlabel = this.selected_label;
         this.dualListBoxContainer.appendChild(
             this._createList(
                 this.search_right,
                 this.selectedListTitle,
-                this.selectedList
+                this.selectedList,
+                this.selected_label
             )
         );
-        this.dualListBoxContainer.appendChild(this.selected_label);
+        //this.dualListBoxContainer.appendChild(this.selected_label);
         this.dualListbox.appendChild(this.dualListBoxContainer);
 
         container.insertBefore(this.dualListbox, this.select);
@@ -392,11 +394,15 @@ class DualListbox {
     /**
      * Creates list with the header.
      */
-    _createList(search, header, list) {
+    _createList(search, header, list, selectedcount) {
         let result = document.createElement("div");
         result.appendChild(search);
         result.appendChild(header);
         result.appendChild(list);
+        if (selectedcount) {
+            result.appendChild(selectedcount);
+        }
+
         return result;
     }
 
@@ -486,7 +492,7 @@ class DualListbox {
      _createSelectedLabel() {
         this.selected_label = document.createElement("label");
         this.selected_label.classList.add(LABEL_ELEMENT);
-        this.selected_label.text = this.selected.length() + this.selectedLabel;
+        this.selected_label.innerText = this.selected.length + this.selectedLabel;
     }
 
     /**
