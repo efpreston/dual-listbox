@@ -9,6 +9,7 @@ const ITEM_ELEMENT = "dual-listbox__item";
 const BUTTONS_ELEMENT = "dual-listbox__buttons";
 const BUTTON_ELEMENT = "dual-listbox__button";
 const SEARCH_ELEMENT = "dual-listbox__search";
+const LABEL_ELEMENT = "dual-listbox__label";
 const SELECTED_MODIFIER = "dual-listbox__item--selected";
 
 const DIRECTION_UP = "up";
@@ -68,7 +69,7 @@ class DualListbox {
         this.removeAllButtonText = "remove all";
 
         this.searchPlaceholder = "Search";
-
+        this.selectedLabel = ' Items Attached';
         this.sortable = false;
         this.upButtonText = "up";
         this.downButtonText = "down";
@@ -95,6 +96,7 @@ class DualListbox {
             this.available.splice(index, 1);
             this.selected.push(listItem);
             this._selectOption(listItem.dataset.id);
+            this._updateSelectedlabel(this.selected.length)
             this.redraw();
 
             setTimeout(() => {
@@ -112,6 +114,7 @@ class DualListbox {
     redraw() {
         this.updateAvailableListbox();
         this.updateSelectedListbox();
+        this.updateSelectedLabel();
     }
 
     /**
@@ -125,6 +128,7 @@ class DualListbox {
             this.selected.splice(index, 1);
             this.available.push(listItem);
             this._deselectOption(listItem.dataset.id);
+            this._updateSelectedlabel(this.selected.length)
             this.redraw();
 
             setTimeout(() => {
@@ -174,6 +178,13 @@ class DualListbox {
         this._updateListbox(this.selectedList, this.selected);
     }
 
+    /**
+     * Update the elements in the selected listbox;
+     */
+    updateSelectedLabel() {
+        this._updateSelectedlabel(this.selected.length);
+    }
+
     //
     //
     // PRIVATE FUNCTIONS
@@ -204,6 +215,13 @@ class DualListbox {
             let listItem = elements[i];
             list.appendChild(listItem);
         }
+    }
+
+    /**
+     * Update the elements in the listbox;
+     */
+    _updateSelectedlabel(selectedlength) {
+        this.selected_label.text = selectedlistlength +this.selectedLabel;
     }
 
     /**
@@ -365,7 +383,7 @@ class DualListbox {
                 this.selectedList
             )
         );
-
+        this.dualListBoxContainer.appendChild(this.selected_label);
         this.dualListbox.appendChild(this.dualListBoxContainer);
 
         container.insertBefore(this.dualListbox, this.select);
@@ -461,6 +479,16 @@ class DualListbox {
         this.search_right.placeholder = this.searchPlaceholder;
     }
 
+     /**
+     * @Private
+     * Creates the search input.
+     */
+     _createSelectedLabel() {
+        this.selected_label = document.createElement("label");
+        this.selected_label.classList.add(LABEL_ELEMENT);
+        this.selected_label.text = this.selected.length() + this.selectedLabel;
+    }
+
     /**
      * @Private
      * Deselects the option with the matching value
@@ -526,6 +554,7 @@ class DualListbox {
         this._createButtons();
         this._createSearchLeft();
         this._createSearchRight();
+        this._createSelectedLabel();
     }
 
     /**
