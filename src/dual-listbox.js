@@ -69,8 +69,8 @@ class DualListbox {
         this.removeAllButtonText = "remove all";
 
         this.searchPlaceholder = "Search";
-        this.selectedLabel = " people on the exam.";
-        this.availableLabel = " people available.";
+        this.selectedLabel = '';
+        this.availableLabel = '';
         this.sortable = false;
         this.upButtonText = "up";
         this.downButtonText = "down";
@@ -232,14 +232,18 @@ class DualListbox {
      * Update the elements in the listbox;
      */
     _updateSelectedlabel(selectedlength) {
-        this.selected_label.innerText = selectedlength +this.selectedLabel;
+        if (this.selected_label){
+            this.selected_label.innerText = selectedlength +this.selectedLabel;
+        }
     }
 
      /**
      * Update the elements in the listbox;
      */
      _updateAvailablelabel(availablelength) {
-        this.available_label.innerText = availablelength +this.availableLabel;
+        if (this.available_label) {
+            this.available_label.innerText = availablelength +this.availableLabel;
+        }
     }
 
     /**
@@ -588,8 +592,12 @@ class DualListbox {
         this._createButtons();
         this._createSearchLeft();
         this._createSearchRight();
-        this._createSelectedLabel();
-        this._createAvailableLabel();
+        if (this.selectedLabel){
+            this._createSelectedLabel();
+        }
+        if (this.availableLabel){
+            this._createAvailableLabel();
+        }
     }
 
     /**
