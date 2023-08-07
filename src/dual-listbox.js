@@ -9,6 +9,7 @@ const ITEM_ELEMENT = "dual-listbox__item";
 const BUTTONS_ELEMENT = "dual-listbox__buttons";
 const BUTTON_ELEMENT = "dual-listbox__button";
 const SEARCH_ELEMENT = "dual-listbox__search";
+const LABEL_ELEMENT = "dual-listbox__label";
 const SELECTED_MODIFIER = "dual-listbox__item--selected";
 
 const DIRECTION_UP = "up";
@@ -68,7 +69,8 @@ class DualListbox {
         this.removeAllButtonText = "remove all";
 
         this.searchPlaceholder = "Search";
-
+        this.selectedLabel = " people on the exam.";
+        this.availableLabel = " people available.";
         this.sortable = false;
         this.upButtonText = "up";
         this.downButtonText = "down";
@@ -95,6 +97,8 @@ class DualListbox {
             this.available.splice(index, 1);
             this.selected.push(listItem);
             this._selectOption(listItem.dataset.id);
+            this._updateSelectedlabel(this.selected.length);
+            this._updateAvailablelabel(this.available.length);
             this.redraw();
 
             setTimeout(() => {
@@ -112,6 +116,8 @@ class DualListbox {
     redraw() {
         this.updateAvailableListbox();
         this.updateSelectedListbox();
+        this.updateSelectedLabel();
+        this.updateAvailableLabel();
     }
 
     /**
@@ -125,6 +131,8 @@ class DualListbox {
             this.selected.splice(index, 1);
             this.available.push(listItem);
             this._deselectOption(listItem.dataset.id);
+            this._updateSelectedlabel(this.selected.length);
+            this._updateAvailablelabel(this.available.length);
             this.redraw();
 
             setTimeout(() => {
@@ -161,17 +169,31 @@ class DualListbox {
     }
 
     /**
-     * Update the elements in the available listbox;
+     * Update the elements in the available label;
      */
     updateAvailableListbox() {
         this._updateListbox(this.availableList, this.available);
     }
 
     /**
-     * Update the elements in the selected listbox;
+     * Update the elements in the selected label;
      */
     updateSelectedListbox() {
         this._updateListbox(this.selectedList, this.selected);
+    }
+
+    /**
+     * Update the elements in the selected listbox;
+     */
+    updateSelectedLabel() {
+        this._updateSelectedlabel(this.selected.length);
+    }
+
+    /**
+     * Update the elements in the selected listbox;
+     */
+    updateAvailableLabel() {
+        this._updateAvailablelabel(this.available.length);
     }
 
     //
@@ -204,6 +226,20 @@ class DualListbox {
             let listItem = elements[i];
             list.appendChild(listItem);
         }
+    }
+
+    /**
+     * Update the elements in the listbox;
+     */
+    _updateSelectedlabel(selectedlength) {
+        this.selected_label.innerText = selectedlength +this.selectedLabel;
+    }
+
+     /**
+     * Update the elements in the listbox;
+     */
+     _updateAvailablelabel(availablelength) {
+        this.available_label.innerText = availablelength +this.availableLabel;
     }
 
     /**
@@ -354,18 +390,21 @@ class DualListbox {
             this._createList(
                 this.search_left,
                 this.availableListTitle,
-                this.availableList
+                this.availableList,
+                this.available_label
             )
         );
         this.dualListBoxContainer.appendChild(this.buttons);
+        let selectedlabel = this.selected_label;
         this.dualListBoxContainer.appendChild(
             this._createList(
                 this.search_right,
                 this.selectedListTitle,
-                this.selectedList
+                this.selectedList,
+                this.selected_label
             )
         );
-
+        //this.dualListBoxContainer.appendChild(this.selected_label);
         this.dualListbox.appendChild(this.dualListBoxContainer);
 
         container.insertBefore(this.dualListbox, this.select);
@@ -374,11 +413,15 @@ class DualListbox {
     /**
      * Creates list with the header.
      */
-    _createList(search, header, list) {
+    _createList(search, header, list, selectedcount) {
         let result = document.createElement("div");
         result.appendChild(search);
         result.appendChild(header);
         result.appendChild(list);
+        if (selectedcount) {
+            result.appendChild(selectedcount);
+        }
+
         return result;
     }
 
@@ -461,6 +504,25 @@ class DualListbox {
         this.search_right.placeholder = this.searchPlaceholder;
     }
 
+     /**
+     * @Private
+     * Creates the search input.
+     */
+     _createSelectedLabel() {
+        this.selected_label = document.createElement("label");
+        this.selected_label.classList.add(LABEL_ELEMENT);
+        this.selected_label.innerText = this.selected.length + this.selectedLabel;
+    }
+    /**
+     * @Private
+     * Creates the search input.
+     */
+    _createAvailableLabel() {
+        this.available_label = document.createElement("label");
+        this.available_label.classList.add(LABEL_ELEMENT);
+        this.available_label.innerText = this.available.length + this.availableLabel;
+    }
+
     /**
      * @Private
      * Deselects the option with the matching value
@@ -526,6 +588,8 @@ class DualListbox {
         this._createButtons();
         this._createSearchLeft();
         this._createSearchRight();
+        this._createSelectedLabel();
+        this._createAvailableLabel();
     }
 
     /**

@@ -1,6 +1,6 @@
 {
     "name": "@uvasomit/dual-listbox",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "Dual listbox for multi-select elements",
     "browserslist": "> 0.05%",
     "devDependencies": {
@@ -37,7 +37,8 @@
     ],
     "author": "Maykin Media <info@maykinmedia.nl>",
     "contributors": [
-        "Ashish Pathak <ap4kt@virginia.edu>"
+        "Ashish Pathak <ap4kt@virginia.edu>",
+        "Ethan Preston <efp7h@virginia.edu>"
     ],
     "license": "MIT",
     "bugs": {
